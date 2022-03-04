@@ -1,30 +1,79 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="nav_bar">
+  </div>
+  <div class="conteiner">
+    <div class="maPage-tittle">
+      <h3>Мои сайты:</h3>
+      <my-button>
+        + Добавить сайт
+      </my-button>
+    </div>
+    <post-form @create = 'addPage'/>
+    <page-list 
+      :siteLists="siteLists"
+      @remove = 'removePage'
+      />
+  </div>
 </template>
 
+<script>
+import PageList from '@/components/PageList.vue'
+import PostForm from '@/components/PageForm.vue'
+export default {
+  components:{
+    PageList,
+    PostForm,
+  },
+  data(){
+    return {
+      siteLists:[
+        {id:1 , tittle: 'My page 1'},
+        {id:2 , tittle: 'My page 2'},
+        {id:3 , tittle: 'My page 3'},
+        {id:4 , tittle: 'My page 4'},
+      ],
+    }
+  },
+  methods:{
+    addPage(page) {
+      this.siteLists.push(page)
+      console.log(page)
+    },
+    removePage(page) {
+      this.siteLists = this.siteLists.filter((item)=>item.id !== page.id)
+    }
+  }
+}
+</script>
+
+
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+.nav_bar{
+  width: 100%;
+  height: 50px;
+  background-color: teal;
+  margin-bottom: 20px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.conteiner{
+  margin: 0 50px;
+}
+.maPage-tittle{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.page-list{
+  display: flex;
+  flex-wrap: wrap;
 }
+
 </style>
