@@ -5,6 +5,7 @@
         v-for="page in siteLists"
         :key="page.id"
         :itemPage="page"
+        @edit = "$emit('edit',page)"
         @remove = "$emit('remove', page)"
       />
   </div>

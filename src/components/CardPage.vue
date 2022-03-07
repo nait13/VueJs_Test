@@ -3,7 +3,7 @@
         <h2>{{itemPage.tittle}}</h2>
         <hr>
         <div class="btn-section">
-            <my-button>Редактировать страницу</my-button>
+            <my-button @click="$emit('edit',itemPage)">Редактировать страницу</my-button>
             <my-button @click="$emit('remove',itemPage)">Удалить страницу</my-button>
             <my-button>Перейти на страницу</my-button>
         </div>

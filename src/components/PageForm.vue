@@ -6,12 +6,17 @@
           placeholder="name"
           v-model="page.tittle"
         />
-        <my-button @click='createPage'>add site</my-button>
+        <my-button @click='createPage'>OK</my-button>
     </form>
 </template>
 
 <script>
 export default {
+    props:{
+        edit:{
+            type:Object,
+        }
+    },
     data(){
         return {
             page:{

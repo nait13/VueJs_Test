@@ -4,14 +4,17 @@
   <div class="conteiner">
     <div class="maPage-tittle">
       <h3>Мои сайты:</h3>
-      <my-button>
+      <my-button @click = 'showModal'>
         + Добавить сайт
       </my-button>
     </div>
-    <post-form @create = 'addPage'/>
+    <my-modal v-model:show = 'modalVisible'>
+      <post-form :edit="editTitle" @create = 'addPage'/>
+    </my-modal>
     <page-list 
       :siteLists="siteLists"
       @remove = 'removePage'
+      @edit = 'editPage'
       />
   </div>
 </template>
@@ -32,15 +35,30 @@ export default {
         {id:3 , tittle: 'My page 3'},
         {id:4 , tittle: 'My page 4'},
       ],
+      modalVisible:false,
+      editing: false,
+      editTitle:'',
+
     }
   },
   methods:{
     addPage(page) {
       this.siteLists.push(page)
-      console.log(page)
+      this.modalVisible = false
     },
     removePage(page) {
       this.siteLists = this.siteLists.filter((item)=>item.id !== page.id)
+    },
+    showModal(){
+      this.modalVisible = true;
+
+    },
+    editPage(page){
+      let findPage = this.siteLists.find((item) => item.id === page.id)
+      console.log(findPage.tittle)
+      this.editTitle = findPage.tittle
+      this.modalVisible = true
+
     }
   }
 }
